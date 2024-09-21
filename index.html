@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <!--ICONS-->
+    <script src="https://kit.fontawesome.com/c8bf7962f3.js" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <link rel="stylesheet" href="css/estilos.css">
+    <!--META-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brujeria</title>
+</head>
+
+<body>
+    <header class="cabecera1">
+        <div class="cabecera_center">
+            <div class="center_left">
+                <a href="#"><i class="fa-solid fa-headphones"></i> Musica para meditar</a>
+                <a href="mailto:tecnica@agnis.tech"><i class="fa-solid fa-envelope"></i> tecnica@agnis.tech</a>
+                <a href="https://api.whatsapp.com/send/?phone=5493516643787"><i class="fa-brands fa-whatsapp"></i>
+                    +54-9-351-6643787</a>
+            </div>
+            <div class="center_right">
+                <a href="https://www.instagram.com/agnis.solucionesweb/"><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://api.whatsapp.com/send/?phone=5493516643787"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </header>
+    <header class="cabecera2">
+        <div class="cabecera_center">
+            <div class="center_left">
+                <a href="#"><img src="img/logo.png" alt=""></a>
+                <h1>Amarres Felicidad y amor</h1>
+            </div>
+            <div class="center_right">
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Acerca</a></li>
+                    <li><a href="#">Testimonios</a></li>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Foro</a></li>
+                    <li><a href="">Contactos</a></li>
+
+                </ul>
+            </div>
+            <div class="button">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </header>
+    <div class="background">
+        <div class="blur"></div>
+    </div>
+    <main class="principal">
+        <section class="inicio">
+            <div class="inicio_div inicio_derecha">
+                <h2>Descubre lo que las cartas tienen para decirte y toma el control de tu destino.</h2>
+                <p>Dejate guiar a través de los caminos que se abren ante ti, brindándote las respuestas y herramientas que necesitas para tomar las mejores decisiones y vivir la vida que mereces. No esperes más para conocer lo que el futuro te depara. ¡Ven y descubre tu destino!
+                </p>
+                <div class="buttons">
+                    <a href="">Ver mas</a>
+                    <a href="">Contacto</a>
+                </div>
+            </div>
+            <div class="inicio_div inicio_izquierda">
+                <div class="perfil">
+                    <h3>Lic. Marta Fuentes</h3>
+                </div>
+            </div>
+
+            </div>
+        </section>
+    </main>
+    <footer class="pie"></footer>
+</body>
+<script src="js/three.min.js"></script>
+<script src="js/postprocessing.min.js"></script>
+<script>
+    let scene, camera, cloudParticles = [], composer;
+    const inicioNubes = document.querySelector(".inicio_derecha")
+    function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(100, inicioNubes.offsetWidth / inicioNubes.offsetHeight, 1, 1000);
+        camera.position.z = 1;
+        camera.rotation.x = 1.16;
+        camera.rotation.y = -0.12;
+        camera.rotation.z = 0.27;
+        let ambient = new THREE.AmbientLight(0x555555);
+        scene.add(ambient);
+
+        let directionalLight = new THREE.DirectionalLight(0xff8c19);
+        directionalLight.position.set(0, 0, 1);
+        scene.add(directionalLight);
+
+        let orangeLight = new THREE.PointLight(0xcc6600, 50, 450, 1.7);
+        orangeLight.position.set(200, 300, 100);
+        scene.add(orangeLight);
+        let redLight = new THREE.PointLight(0xd8547e, 50, 450, 1.7);
+        redLight.position.set(100, 300, 100);
+        scene.add(redLight);
+        let blueLight = new THREE.PointLight(0x3677ac, 50, 450, 1.7);
+        blueLight.position.set(300, 300, 200);
+        scene.add(blueLight);
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(inicioNubes.offsetWidth, inicioNubes.offsetHeight);
+        scene.fog = new THREE.FogExp2(0x2d2b30, 0.0001);
+        renderer.setClearColor(scene.fog.color);
+        inicioNubes.appendChild(renderer.domElement);
+        let loader = new THREE.TextureLoader();
+
+        loader.load("img/smoke.png", function (texture) {
+            cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
+            cloudMaterial = new THREE.MeshLambertMaterial({
+                map: texture,
+                transparent: true
+            });
+
+            for (let p = 0; p < 50; p++) {
+                let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+                cloud.position.set(
+                    Math.random() * 800 - 400,
+                    500,
+                    Math.random() * 500 - 500
+                );
+                cloud.rotation.x = 1.16;
+                cloud.rotation.y = -0.12;
+                cloud.rotation.z = Math.random() * 2 * Math.PI;
+                cloud.material.opacity = 0.55;
+                cloudParticles.push(cloud);
+                scene.add(cloud);
+            }
+        });
+
+        loader.load("img/stars2.png", function (texture) {
+
+            const textureEffect = new POSTPROCESSING.TextureEffect({
+                blendFunction: POSTPROCESSING.BlendFunction.COLOR_DODGE,
+                texture: texture
+            });
+            textureEffect.blendMode.opacity.value = 0.2;
+
+            const bloomEffect = new POSTPROCESSING.BloomEffect({
+                blendFunction: POSTPROCESSING.BlendFunction.COLOR_DODGE,
+                kernelSize: POSTPROCESSING.KernelSize.SMALL,
+                useLuminanceFilter: true,
+                luminanceThreshold: 0.3,
+                luminanceSmoothing: 0.75
+            });
+            bloomEffect.blendMode.opacity.value = 1.5;
+
+            let effectPass = new POSTPROCESSING.EffectPass(
+                camera,
+                bloomEffect,
+                textureEffect
+            );
+            effectPass.renderToScreen = true;
+
+            composer = new POSTPROCESSING.EffectComposer(renderer);
+            composer.addPass(new POSTPROCESSING.RenderPass(scene, camera));
+            composer.addPass(effectPass);
+
+            window.addEventListener("resize", onWindowResize, false);
+            render();
+        });
+
+    }
+    function onWindowResize() {
+        camera.aspect = inicioNubes.offsetWidth / inicioNubes.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(inicioNubes.offsetWidth, inicioNubes.offsetHeight);
+    }
+    function render() {
+        cloudParticles.forEach(p => {
+            p.rotation.z -= 0.001;
+        });
+        composer.render(0.1);
+        requestAnimationFrame(render);
+    }
+    init();
+</script>
+
+</html>
